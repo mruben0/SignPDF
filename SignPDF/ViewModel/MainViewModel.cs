@@ -2,11 +2,11 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Microsoft.Win32;
 using SignPDF.Services.Abstract;
+using System.Diagnostics;
 using System.Windows.Input;
 
 namespace SignPDF.ViewModel
 {
-   
     public class MainViewModel : ViewModelBase
     {
         private readonly IPDFSigningService _signingService;
@@ -24,6 +24,11 @@ namespace SignPDF.ViewModel
             _signingService = signingService ?? throw new System.ArgumentNullException(nameof(signingService));
         }
 
+        public ICommand BrowseGithubCommand => new RelayCommand(() =>
+        {
+            Process.Start("https://github.com/mruben0/SignPDF");
+        });
+
         public ICommand GetPathCommand => new RelayCommand<object>((o) =>
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -37,6 +42,7 @@ namespace SignPDF.ViewModel
                         InputPath = openFileDialog.FileName;
                     }
                     break;
+
                 case "image":
                     openFileDialog.Filter = "Image Files(*.bmp; *.jpg; *.jpeg,*.png) | *.BMP;*.JPG;*.JPEG;*.PNG";
                     if (openFileDialog.ShowDialog() == true)
@@ -44,6 +50,7 @@ namespace SignPDF.ViewModel
                         ImagePath = openFileDialog.FileName;
                     }
                     break;
+
                 default:
                     break;
             }
@@ -89,6 +96,5 @@ namespace SignPDF.ViewModel
                 RaisePropertyChanged();
             }
         }
-
     }
 }

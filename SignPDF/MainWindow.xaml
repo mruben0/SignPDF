@@ -3,11 +3,29 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SignPDF"
+        xmlns:local="clr-namespace:SignPDF"                      
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         DataContext="{Binding Main, Source={StaticResource Locator}}"
+        ResizeMode="CanMinimize"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="PDF Signer" Height="450" Width="800">
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+            <Button Content="settings" />
+            <Button ToolTip="Open repository in the default browser" Cursor="Hand" Command="{Binding BrowseGithubCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconModern Width="24" Height="24" Kind="SocialGithubOctocatSolid" />
+                    <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="Github" />
+                </StackPanel>
+            </Button>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
+    <Controls:MetroWindow.LeftWindowCommands>
+        <Controls:WindowCommands>
+            <iconPacks:PackIconModern Width="24" Height="24" Margin="4" Kind="PagePdf" />
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.LeftWindowCommands>
     <Grid>
         
     </Grid>
