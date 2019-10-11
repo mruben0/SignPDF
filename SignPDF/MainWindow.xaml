@@ -3,16 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SignPDF"                      
+        xmlns:local="clr-namespace:SignPDF"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        DataContext="{Binding Main, Source={StaticResource Locator}}"
+        DataContext="{Binding MainVM, Source={StaticResource Locator}}"
         ResizeMode="CanMinimize"
         mc:Ignorable="d"
         Title="PDF Signer" Height="450" Width="800">
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
-            <Button Content="settings" />
+            <Button Command="{Binding NavigateToCommand}" CommandParameter="SettingsView" Content="settings" />
             <Button ToolTip="Open repository in the default browser" Cursor="Hand" Command="{Binding BrowseGithubCommand}">
                 <StackPanel Orientation="Horizontal">
                     <iconPacks:PackIconModern Width="24" Height="24" Kind="SocialGithubOctocatSolid" />
@@ -23,10 +23,10 @@
     </Controls:MetroWindow.RightWindowCommands>
     <Controls:MetroWindow.LeftWindowCommands>
         <Controls:WindowCommands>
-            <iconPacks:PackIconModern Width="24" Height="24" Margin="4" Kind="PagePdf" />
+            <Button Cursor="Hand"  IsEnabled="{Binding CanGoBack, Converter={StaticResource boolInverter}}" Command="{Binding GoBackCommand}" Margin="4">
+                <iconPacks:PackIconModern Kind="ArrowLeft" />
+            </Button>          
         </Controls:WindowCommands>
     </Controls:MetroWindow.LeftWindowCommands>
-    <Grid>
-        
-    </Grid>
+    <Frame Margin="5" Name="MainFrame" NavigationUIVisibility="Hidden" />
 </Controls:MetroWindow>

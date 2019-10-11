@@ -2,19 +2,21 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Microsoft.Win32;
 using SignPDF.Services.Abstract;
+using SignPDF.Views;
 using System.Diagnostics;
 using System.Windows.Input;
 
-namespace SignPDF.ViewModel
+namespace SignPDF.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
         private readonly IPDFSigningService _signingService;
+        public readonly INavigationService _navigationService;
         private string _inputPath;
         private string _outPath;
         private string _imagePath;
 
-        public MainViewModel(IPDFSigningService signingService)
+        public MainViewModel(IPDFSigningService signingService, INavigationService navigationService)
         {
             if (IsInDesignMode)
             {
@@ -22,12 +24,32 @@ namespace SignPDF.ViewModel
             }
 
             _signingService = signingService ?? throw new System.ArgumentNullException(nameof(signingService));
+            this._navigationService = navigationService ?? throw new System.ArgumentNullException(nameof(navigationService));
+        }
+
+        internal void Initialize()
+        {
+            _navigationService.Navigate(nameof(HomeView));
         }
 
         public ICommand BrowseGithubCommand => new RelayCommand(() =>
         {
             Process.Start("https://github.com/mruben0/SignPDF");
         });
+
+        public ICommand NavigateToCommand => new RelayCommand<string>((navigationTag) =>
+        {
+            _navigationService.Navigate(navigationTag);
+            RaisePropertyChanged(nameof(CanGoBack));
+        });
+
+        public ICommand GoBackCommand => new RelayCommand(() =>
+        {
+            _navigationService.GoBack();
+            RaisePropertyChanged(nameof(CanGoBack));
+        });
+
+        public bool CanGoBack => _navigationService.CanGoBack;
 
         public ICommand GetPathCommand => new RelayCommand<object>((o) =>
         {

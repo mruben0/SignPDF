@@ -1,6 +1,4 @@
-﻿using MahApps.Metro.Controls;
-using SignPDF.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,22 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SignPDF
-{ 
-    public partial class MainWindow : MetroWindow
+namespace SignPDF.Views
+{
+
+    public partial class HomeView : Page
     {
-        public MainWindow()
+        public HomeView()
         {
             InitializeComponent();
-            Loaded += MainWindow_Loaded;
-        }
-
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            if (DataContext is MainViewModel vm)
-            {
-                vm.Initialize();
-            }
         }
     }
 }
