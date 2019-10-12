@@ -19,7 +19,6 @@
                 Margin="4"
                 Command="{Binding GoBackCommand}"
                 Cursor="Hand"
-                IsEnabled="{Binding CanGoBack, Converter={StaticResource boolInverter}}"
                 ToolTip="Previous Window">
                 <iconPacks:PackIconModern Kind="ArrowLeft" />
             </Button>

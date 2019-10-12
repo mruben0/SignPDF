@@ -1,7 +1,8 @@
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.CommandWpf;
 using SignPDF.Services.Abstract;
 using SignPDF.Views;
+using System;
 using System.Diagnostics;
 using System.Windows.Input;
 
@@ -35,14 +36,17 @@ namespace SignPDF.ViewModels
         {
             _navigationService.Navigate(navigationTag);
             RaisePropertyChanged(nameof(CanGoBack));
+            GoBackCommand.RaiseCanExecuteChanged();
         });
 
-        public ICommand GoBackCommand => new RelayCommand(() =>
+        public RelayCommand GoBackCommand => new RelayCommand(() =>
         {
             _navigationService.GoBack();
-            RaisePropertyChanged(nameof(CanGoBack));
-        });
+        }, CanGoBack);
 
-        public bool CanGoBack => _navigationService.CanGoBack;
+        private bool CanGoBack()
+        {
+            return _navigationService.CanGoBack;
+        }
     }
 }
