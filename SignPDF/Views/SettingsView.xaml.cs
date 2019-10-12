@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using SignPDF.ViewModels;
+using System.Windows.Controls;
 
 namespace SignPDF.Views
 {
@@ -7,6 +8,15 @@ namespace SignPDF.Views
         public SettingsView()
         {
             InitializeComponent();
+            Loaded += SettingsView_Loaded;
+        }
+
+        private void SettingsView_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (DataContext is SettingsViewModel vm)
+            {
+                vm.Initialize();
+            }
         }
     }
 }

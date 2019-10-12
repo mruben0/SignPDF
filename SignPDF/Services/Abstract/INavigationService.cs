@@ -6,12 +6,8 @@ namespace SignPDF.Services.Abstract
     {
         bool CanGoBack { get; }
         string CurrentPageKey { get; }
-
         void RegisterView(string key, Uri pageType);
-
         void GoBack();
-
         void Navigate(string pageKey, bool addHistory = true);
-
     }
 }

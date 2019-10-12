@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SignPDF.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,15 @@ namespace SignPDF.Views
         public HomeView()
         {
             InitializeComponent();
+            Loaded += HomeView_Loaded;
+        }
+
+        private void HomeView_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is HomeViewModel vm)
+            {
+                vm.Initialize();
+            }
         }
     }
 }
